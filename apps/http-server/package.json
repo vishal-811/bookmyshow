@@ -3,20 +3,26 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build" :"tsc -b",
-    "start" :"node dist/index.js",
-    "dev" :"npm run build & npm run start"
+    "build": "tsc -b",
+    "start": "node dist/index.js",
+    "dev": "npm run build && npm run start"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@repo/db": "*",
+    "@repo/typescript-config": "*",
+    "@repo/zod": "*",
+    "authenticator": "^1.1.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
-    "@repo/typescript-config" : "*",
-    "@repo/zod" :"*"
+    "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
-    "@types/express": "^5.0.0"
+    "@types/authenticator": "^1.1.4",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7"
   }
 }
