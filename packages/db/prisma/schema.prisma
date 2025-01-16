@@ -14,15 +14,83 @@ datasource db {
 }
 
 model User {
-  id String @unique @default(uuid())
-  name String
-  phoneNumber Int @unique
-  isverified Boolean
+  id          String  @unique @default(uuid())
+  name        String
+  phoneNumber Int     @unique
+  isverified  Boolean
+
 }
 
-model admin{
+model Creator {
+  id          String  @unique @default(uuid())
+  name        String
+  phoneNumber Int     @unique
+  isVerified  Boolean
+  Events      Event[]
+}
+
+model Event {
+  id          String   @unique @default(uuid())
+  title       String
+  description String
+  date        DateTime
+  time        DateTime
+
+  creatorId String
+  creator   Creator  @relation(fields: [creatorId], references: [id])
+  seats Seat[]
+
+  location EventsOnLocations[]
+}
+
+model Location {
+  id      String @unique @default(uuid())
+  country String
+  state   String
+  city    String
+  pincode Int
+  address String
+
+  event EventsOnLocations[]
+}
+
+model EventsOnLocations {
+  locationId String
+  locations  Location @relation(fields: [locationId], references: [id])
+
+  eventId String
+  events  Event  @relation(fields: [eventId], references: [id])
+
+  @@id([locationId, eventId])
+}
+
+model Seat {
   id String @unique @default(uuid())
-  name  String
-  phoneNumber Int @unique
-  isVerified Boolean
+
+  qr String
+  eventId String
+  event Event @relation(fields: [eventId], references: [id])
+
+  seatTypeId String 
+  seatType SeatType @relation(fields: [seatTypeId], references: [id])
+}
+
+model SeatType {
+  id          String @unique @default(uuid())
+  name        String
+  description String
+  price       Int
+  Capacity    Int
+  filled      Int    @default(0)
+
+  seats Seat[]
+}
+
+
+model payment {
+  id String @unique @default(uuid())
+}
+
+model Booking {
+  id String @unique @default(uuid())
 }
